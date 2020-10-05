@@ -14,11 +14,14 @@
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- FA Icons -->
+    <script src="https://kit.fontawesome.com/215908d2e8.js" crossorigin="anonymous"></script>
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="stylesheet.css">
   </head>
 
   <body>
@@ -30,7 +33,7 @@
             <div></div>
             <div></div>
         </div>
-    </div>  
+    </div>
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
@@ -47,7 +50,7 @@
                 <a class="nav-link" href="index.html">Home
                   <span class="sr-only">(current)</span>
                 </a>
-              </li> 
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="products.html">Products</a>
               </li>
@@ -58,13 +61,16 @@
 
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-                  
+
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="about.html">About Us</a>
                     <a class="dropdown-item" href="blog.html">Blog</a>
                     <a class="dropdown-item" href="testimonials.html">Testimonials</a>
                     <a class="dropdown-item" href="terms.html">Terms</a>
                   </div>
+                <li class="nav-item">
+                  <a class = "far fa-user-circle"  href="login/welcome.php"></a>
+                </li>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="contact.html">Contact Us</a>
@@ -83,7 +89,7 @@
           <div class="item">
             <img src="assets/images/product-1-720x480.jpg" alt="">
             <div class="item-content">
-              
+
               <div class="main-content">
                 <div class="meta-category">
                   <span> <del>$500.00</del>  $700.00 </span>
@@ -95,13 +101,13 @@
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet veniam, architecto invento audantium reprehenderit. Eius, architecto necessitatibus.</li>
                 </ul>
               </div>
-            
+
             </div>
           </div>
           <div class="item">
             <img src="assets/images/product-2-720x480.jpg" alt="">
             <div class="item-content">
-              
+
               <div class="main-content">
                 <div class="meta-category">
                   <span> <del>$500.00</del>  $700.00 </span>
@@ -113,13 +119,13 @@
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi ipsa maxime, recusandae expedita officia eligendi aliquam molestiae qui id eius.</li>
                 </ul>
               </div>
-            
+
             </div>
           </div>
           <div class="item">
             <img src="assets/images/product-3-720x480.jpg" alt="">
             <div class="item-content">
-              
+
               <div class="main-content">
                 <div class="meta-category">
                   <span> <del>$500.00</del>  $700.00 </span>
@@ -131,13 +137,13 @@
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, error repudiandae sunt totam nemo enim minus incidunt veritatis maxime autem!</li>
                 </ul>
               </div>
-            
+
             </div>
           </div>
           <div class="item">
             <img src="assets/images/product-4-720x480.jpg" alt="">
             <div class="item-content">
-              
+
               <div class="main-content">
                 <div class="meta-category">
                   <span> <del>$500.00</del>  $700.00 </span>
@@ -149,13 +155,13 @@
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquid, saepe nemo molestiae. Optio eaque dignissimos, earum officia vel amet.</li>
                 </ul>
               </div>
-            
+
             </div>
           </div>
           <div class="item">
             <img src="assets/images/product-5-720x480.jpg" alt="">
             <div class="item-content">
-              
+
               <div class="main-content">
                 <div class="meta-category">
                   <span> <del>$500.00</del>  $700.00 </span>
@@ -167,7 +173,7 @@
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta id similique quisquam quam maiores adipisci velit molestias illum inventore aliquam.</li>
                 </ul>
               </div>
-            
+
             </div>
           </div>
           <div class="item">
@@ -303,7 +309,7 @@
                 </div>
                 <div class="down-content">
                   <a href="blog-details.html"><h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4></a>
-                  
+
                   <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
 
                   <ul class="post-info">
@@ -321,7 +327,7 @@
                 </div>
                 <div class="down-content">
                   <a href="blog-details.html"><h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4></a>
-                  
+
                   <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
 
                   <ul class="post-info">
@@ -339,7 +345,7 @@
                 </div>
                 <div class="down-content">
                   <a href="blog-details.html"><h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4></a>
-                  
+
                   <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
 
                   <ul class="post-info">
@@ -395,7 +401,7 @@
 
           <br>
           <br>
-        
+
           <div class="row justify-content-md-center">
             <div class="col-md-3">
               <div class="main-button">
@@ -441,7 +447,7 @@
     <script src="assets/js/isotope.js"></script>
     <script src="assets/js/accordions.js"></script>
 
-    <script language = "text/Javascript"> 
+    <script language = "text/Javascript">
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
       function clearField(t){                   //declaring the array outside of the
       if(! cleared[t.id]){                      // function makes it static and global
