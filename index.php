@@ -68,12 +68,12 @@
                     <a class="dropdown-item" href="testimonials.html">Testimonials</a>
                     <a class="dropdown-item" href="terms.html">Terms</a>
                   </div>
-                <li class="nav-item">
-                  <a class = "far fa-user-circle"  href="login/welcome.php"></a>
-                </li>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="contact.html">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a class = "far fa-user-circle" id="account-button" href="login/welcome.php"></a>
               </li>
             </ul>
           </div>
