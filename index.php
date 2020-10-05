@@ -77,9 +77,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="contact.html">Contact Us</a>
               </li>
-              <li class="nav-item">
-                <p>Welcome, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>!</p>
-              </li>
+              <?php if(isset($_SESSION["loggedin"])) {
+                $uname = htmlspecialchars($_SESSION["username"]);
+                echo "<li class=\"nav-item row align-items-center\"><p>Welcome, <b>" . $uname ." </b>!</p></li>";
+              }
+              ?>
             </ul>
           </div>
         </div>
