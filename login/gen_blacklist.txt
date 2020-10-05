@@ -1,0 +1,9 @@
+CREATE TABLE password_blacklist (
+    password VARCHAR(255) NOT NULL PRIMARY KEY
+);
+
+INSERT INTO `password_blacklist`(`password`) 
+    VALUES 
+        ("password"), 
+        ("123456")
+;
