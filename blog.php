@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,6 +72,14 @@
               <li class="nav-item">
                 <a class="nav-link" href="contact.php">Contact Us</a>
               </li>
+	      <li class="nav-item">
+                <a class = "far fa-user-circle" id="account-button" href="login/welcome.php"></a>
+              </li>
+              <?php if(isset($_SESSION["loggedin"])) {
+                $uname = htmlspecialchars($_SESSION["username"]);
+                echo "<li class=\"nav-item row align-items-center\"><p id=\"welcome-message\">Welcome, <b>" . $uname ."</b>!</p></li>";
+              }
+              ?>
             </ul>
           </div>
         </div>
