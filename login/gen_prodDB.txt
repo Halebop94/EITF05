@@ -1,11 +1,12 @@
 CREATE TABLE products (
-    id TEXT NOT NULL PRIMARY KEY ,
-    price INT NOT NULL;
+    id VARCHAR(100) NOT NULL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price VARCHAR(100) NOT NULL
 );
 
-INSERT INTO products(id, price)
-VALUES  (f_white, 150),
-        (f_black, 200),
-        (f_gray, 250),
-        (f_pink, 300)
+INSERT INTO products(id, name, price)
+VALUES  ("f_white", "Vit Fåtölj", "150"),
+        ("f_black", "Svart Fåtölj", "200"),
+        ("f_gray", "Grå Fåtölj", "250"),
+        ("f_pink", "Rosa Fåtölj", "300")
 ;
