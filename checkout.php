@@ -4,11 +4,13 @@ $root = dirname(__FILE__);
 include "$root/class.product.php";
 
 if(isset($_SESSION["cart_items"])){
-  $items = $_SESSION["cart_items"];
+  $serialized = $_SESSION["cart_items"];
 
-  foreach ($items as $item) {
-    $item = unserialize($item, ["Product"]);
+  foreach ($serialized as $item) {
+    $items[] = unserialize($item, ["Product"]);
   }
+}else{
+  $items = [];
 }
 ?>
 

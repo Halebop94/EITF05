@@ -7,16 +7,16 @@ include "$root/class.product.php";
 
 
 $product = $cost = "";
+$cost = "100";
+$amount = "1";
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
   $product = trim($_POST["productname"]);
   //$cost = trim($_POST["price"]);
-  $cost = "100";
 
-
-  $cartproduct = new Product($product, $cost);
+  $cartproduct = new Product($product, $cost, $amount);
 
   if(!isset($_SESSION["cart_items"])){
     $_SESSION["cart_items"] = array(serialize($cartproduct)) ;
