@@ -1,0 +1,11 @@
+CREATE TABLE products (
+    id TEXT NOT NULL PRIMARY KEY ,
+    price INT NOT NULL;
+);
+
+INSERT INTO products(id, price)
+VALUES  (f_white, 150),
+        (f_black, 200),
+        (f_gray, 250),
+        (f_pink, 300)
+;
