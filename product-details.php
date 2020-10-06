@@ -1,9 +1,32 @@
 
-<?php session_start();
-function addToCart() {
-  if(isset($_POST[form-submit]))
-   array_push($_SESSION["cart_items"], (object)['name' => 'Hello.', 'price' => '$100']);
+<?php
+
+session_start();
+$root = dirname(__FILE__);
+include "$root/class.product.php";
+
+
+$product = $cost = "";
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+  $product = trim($_POST["productname"]);
+  //$cost = trim($_POST["price"]);
+  $cost = "100";
+
+
+  $cartproduct = new Product($product, $cost);
+
+  if(!isset($_SESSION["cart_items"])){
+    $_SESSION["cart_items"] = array(serialize($cartproduct)) ;
+  }else{
+    $_SESSION["cart_items"][] = serialize($cartproduct);
+  }
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -176,13 +199,13 @@ function addToCart() {
                 </div>
 
                 <div class="content">
-                  <form id="contact" action="" method="post">
+                  <form id="contact" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="row">
                       <div class="col-md-6 col-sm-12">
                         <fieldset>
                           <label for="">Extra 1</label>
-                          <select>
-                            <option value="0">Extra A</option>
+                          <select name="productname">
+                            <option value="Extra A">Extra A</option>
                             <option value="0">Extra B</option>
                             <option value="0">Extra C</option>
                             <option value="0">Extra D</option>

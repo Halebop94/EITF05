@@ -1,3 +1,17 @@
+<?php session_start();
+
+$root = dirname(__FILE__);
+include "$root/class.product.php";
+
+if(isset($_SESSION["cart_items"])){
+  $items = $_SESSION["cart_items"];
+
+  foreach ($items as $item) {
+    $item = unserialize($item, ["Product"]);
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +44,7 @@
             <div></div>
             <div></div>
         </div>
-    </div>  
+    </div>
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
@@ -47,7 +61,7 @@
                 <a class="nav-link" href="index.php">Home
                   <span class="sr-only">(current)</span>
                 </a>
-              </li> 
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="products.php">Products</a>
               </li>
@@ -58,7 +72,7 @@
 
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-                  
+
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="about.php">About Us</a>
                     <a class="dropdown-item" href="testimonials.php">Testimonials</a>
@@ -90,73 +104,29 @@
         </div>
       </section>
     </div>
-    
+
     <!-- Banner Ends Here -->
 
     <section class="contact-us">
       <div class="container">
         <br>
         <br>
-
+<?php
+  foreach ($items as $item) {
+    echo 'Möbeln heter ' . $item->getName() . ' den kostar ' . $item->getPrice() . "\n";
+  }
+ ?>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <div class="row">
                   <div class="col-6">
                        <em>Sub-total</em>
                   </div>
-                  
+
                   <div class="col-6 text-right">
                        <strong>$ 128.00</strong>
                   </div>
              </div>
-          </li>
-          
-          <li class="list-group-item">
-               <div class="row">
-                    <div class="col-6">
-                         <em>Extra</em>
-                    </div>
-
-                    <div class="col-6 text-right">
-                         <strong>$ 0.00</strong>
-                    </div>
-               </div>
-          </li>
-
-          <li class="list-group-item">
-               <div class="row">
-                    <div class="col-6">
-                         <em>Tax</em>
-                    </div>
-
-                    <div class="col-6 text-right">
-                         <strong>$ 10.00</strong>
-                    </div>
-               </div>
-          </li>
-
-          <li class="list-group-item">
-               <div class="row">
-                    <div class="col-6">
-                         <em>Total</em>
-                    </div>
-
-                    <div class="col-6 text-right">
-                         <strong>$ 138.00</strong>
-                    </div>
-               </div>
-          </li>
-
-          <li class="list-group-item">
-               <div class="row">
-                    <div class="col-6">
-                         <em>Deposit payment required</em>
-                    </div>
-
-                    <div class="col-6 text-right">
-                         <strong>$ 20.00</strong>
-                    </div>
-               </div>
           </li>
         </ul>
 
@@ -274,7 +244,7 @@
 
                      <div class="clearfix">
                           <button type="button" class="filled-button pull-left">Back</button>
-                          
+
                           <button type="submit" class="filled-button pull-right">Finish</button>
                      </div>
                 </form>
@@ -283,7 +253,7 @@
         </div>
       </div>
     </section>
-    
+
     <footer>
       <div class="container">
         <div class="row">
@@ -318,7 +288,7 @@
     <script src="assets/js/isotope.js"></script>
     <script src="assets/js/accordions.js"></script>
 
-    <script language = "text/Javascript"> 
+    <script language = "text/Javascript">
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
       function clearField(t){                   //declaring the array outside of the
       if(! cleared[t.id]){                      // function makes it static and global

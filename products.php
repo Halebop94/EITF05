@@ -31,11 +31,8 @@
             <div></div>
             <div></div>
         </div>
-<<<<<<< HEAD
-    </div>  
-=======
     </div>
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
+
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
@@ -52,11 +49,7 @@
                 <a class="nav-link" href="index.php">Home
                   <span class="sr-only">(current)</span>
                 </a>
-<<<<<<< HEAD
-              </li> 
-=======
               </li>
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
               <li class="nav-item active">
                 <a class="nav-link" href="products.php">Products</a>
               </li>
@@ -67,8 +60,7 @@
 
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-<<<<<<< HEAD
-                  
+
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="about.php">About Us</a>
                     <a class="dropdown-item" href="testimonials.php">Testimonials</a>
@@ -77,17 +69,6 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="contact.php">Contact Us</a>
-=======
-
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="about.html">About Us</a>
-                    <a class="dropdown-item" href="testimonials.html">Testimonials</a>
-                    <a class="dropdown-item" href="terms.html">Terms</a>
-                  </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
               </li>
             </ul>
           </div>
@@ -104,27 +85,17 @@
             <div class="col-lg-12">
               <div class="text-content">
                 <h4>Products</h4>
-<<<<<<< HEAD
                 <h2>Choose the best product for you!</h2>
-=======
-                <h2>Choose the best product for you!!!!</h2>
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
               </div>
             </div>
           </div>
         </div>
       </section>
     </div>
-<<<<<<< HEAD
-    
-    <!-- Banner Ends Here -->
-
-=======
 
     <!-- Banner Ends Here -->
 
 
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
     <section class="blog-posts grid-system">
       <div class="container">
         <div class="all-blog-posts">
@@ -136,13 +107,8 @@
                 </div>
                 <div class="down-content">
                   <span> <del>$500.00</del>  $700.00 </span>
-<<<<<<< HEAD
-                  <a href="product-details.php"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
-                  <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non harum deserunt, obcaecati!</p>
-=======
                   <a href="product-details.php"><h4>Lets try this</h4></a>
                   <p> We did it!</p>
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
                   <div class="post-options">
                     <div class="row">
                       <div class="col-lg-12">
@@ -271,11 +237,6 @@
       </div>
     </section>
 
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
     <footer>
       <div class="container">
         <div class="row">
@@ -310,11 +271,7 @@
     <script src="assets/js/isotope.js"></script>
     <script src="assets/js/accordions.js"></script>
 
-<<<<<<< HEAD
-    <script language = "text/Javascript"> 
-=======
     <script language = "text/Javascript">
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
       function clearField(t){                   //declaring the array outside of the
       if(! cleared[t.id]){                      // function makes it static and global
@@ -326,8 +283,4 @@
     </script>
 
   </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
