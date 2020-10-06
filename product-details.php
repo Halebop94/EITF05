@@ -1,15 +1,38 @@
-<?php session_start();
-function addToCart() {
-  array_push($_SESSION["cart_items"], (object)['name' => 'Hello.', 'price' => 100]);
-}
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+<?php
+
+session_start();
+$root = dirname(__FILE__);
+include "$root/class.product.php";
 
 
-  if(isset(!$_SESSION['cart_items'])) {
-    addToCart();
+$product = $productname = $cost = "";
+$cost = "100";
+$amount = "1";
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+  $product = explode(";",trim($_POST["productname"]));
+  $productname = $product[0];
+  $cost = $product[1];
+  $amount = trim($_POST["amount"]);
+
+  for ($i = 0; $i < $amount; $i++){
+    $cartproduct = new Product($productname, $cost);
+      if(!isset($_SESSION["cart_items"])){
+        $_SESSION["cart_items"] = array(serialize($cartproduct)) ;
+      }else{
+        $_SESSION["cart_items"][] = serialize($cartproduct);
+      }
   }
+
+
+
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +69,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div></div>
         </div>
     </div>
+
+
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
@@ -73,7 +98,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="about.php">About Us</a>
                     <a class="dropdown-item" href="blog.php">Blog</a>
@@ -84,6 +108,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
               <li class="nav-item">
                 <a class="nav-link" href="contact.php">Contact Us</a>
               </li>
+              <li class="nav-item">
+                <a class = "far fa-user-circle" id="account-button" href="login/welcome.php"></a>
+              </li>
+              <?php if(isset($_SESSION["loggedin"])) {
+                $uname = htmlspecialchars($_SESSION["username"]);
+                echo "<li class=\"nav-item row align-items-center\"><p id=\"welcome-message\">Welcome, <b>" . $uname ."</b>!</p></li>";
+              }
+              ?>
             </ul>
           </div>
         </div>
@@ -106,7 +138,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
       </section>
     </div>
-
     <!-- Banner Ends Here -->
 
     <section class="blog-posts grid-system">
@@ -175,7 +206,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <br>
             <br>
-
             <div class="contact-us">
               <div class="sidebar-item contact-form">
                 <div class="sidebar-heading">
@@ -188,11 +218,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                       <div class="col-md-6 col-sm-12">
                         <fieldset>
                           <label for="">Extra 1</label>
-                          <select>
-                            <option value="0">Extra A</option>
+                          <select name="productname">
+<<<<<<< Updated upstream
+                            <option value="Vit Fotölj;150">Vit Fotölj ($150)</option>
+                            <option value="Svart Fotölj;200">Svart Fotölj ($200)</option>
+                            <option value="Grå Fotölj;250">Grå Fotölj ($250)</option>
+                            <option value="Röd Fotölj;300">Röd Fotölj ($300)</option>
+=======
+                            <option value="Extra A">Extra A</option>
                             <option value="0">Extra B</option>
                             <option value="0">Extra C</option>
                             <option value="0">Extra D</option>
+>>>>>>> Stashed changes
                           </select>
                         </fieldset>
                       </div>
@@ -202,7 +239,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                       <div class="col-md-6 col-sm-12">
                         <fieldset>
                           <label for="">Quantity</label>
-                          <input type="text" value="1" required="">
+                          <input type="text" value="1" required="" name="amount">
                         </fieldset>
                       </div>
                       <div class="col-lg-12">
@@ -282,6 +319,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="assets/js/accordions.js"></script>
 
     <script language = "text/Javascript">
+
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
       function clearField(t){                   //declaring the array outside of the
       if(! cleared[t.id]){                      // function makes it static and global
@@ -293,4 +331,5 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     </script>
 
   </body>
+
 </html>

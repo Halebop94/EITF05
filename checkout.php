@@ -1,4 +1,24 @@
-<?php session_start(); ?>
+<?php session_start();
+
+$root = dirname(__FILE__);
+include "$root/class.product.php";
+$totalcost = 0;
+
+
+if(isset($_SESSION["cart_items"])){
+  $serialized = $_SESSION["cart_items"];
+
+  foreach ($serialized as $item) {
+    $readable = unserialize($item, ["Product"]);
+    $totalcost += strval($readable->getPrice());
+    $items[] = $readable;
+  }
+}else{
+  $items = [];
+}
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -100,8 +120,11 @@
         <br>
         <br>
 <?php
-$items = $_SESSION["cart_items"];
-print_r($items);
+  echo "<ul style=" . "list-style-type: circle;" . ">";
+  foreach ($items as $item) {
+    echo '<li> Möbeln heter ' . $item->getName() . ' den kostar ' . $item->getPrice() . "\n </li>";
+  }
+  echo "</ul>";
  ?>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
@@ -111,7 +134,7 @@ print_r($items);
                   </div>
 
                   <div class="col-6 text-right">
-                       <strong>$ 128.00</strong>
+                       <strong><?php echo "\$" . "$totalcost" ?></strong>
                   </div>
              </div>
           </li>
@@ -231,8 +254,7 @@ print_r($items);
 
                      <div class="clearfix">
                           <button type="button" class="filled-button pull-left">Back</button>
-
-                          <button type="submit" class="filled-button pull-right">Finish!!!!</button>
+                          <button type="button" onclick="window.location='orderconfirm.php'" class="filled-button pull-right">Finish</button>
                      </div>
                 </form>
             </div>

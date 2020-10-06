@@ -34,6 +34,7 @@
             <div></div>
         </div>
     </div>
+
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
@@ -86,7 +87,7 @@
             <div class="col-lg-12">
               <div class="text-content">
                 <h4>Products</h4>
-                <h2>Choose the best product for you!!!!</h2>
+                <h2>Choose the best product for you!</h2>
               </div>
             </div>
           </div>
@@ -237,7 +238,6 @@
         </div>
       </div>
     </section>
-
 
     <footer>
       <div class="container">
