@@ -232,7 +232,7 @@ print_r($items);
                      <div class="clearfix">
                           <button type="button" class="filled-button pull-left">Back</button>
 
-                          <button type="submit" class="filled-button pull-right">Finish</button>
+                          <button type="submit" class="filled-button pull-right">Finish!!!!</button>
                      </div>
                 </form>
             </div>

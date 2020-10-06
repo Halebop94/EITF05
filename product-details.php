@@ -1,7 +1,14 @@
 <?php session_start();
 function addToCart() {
-  if(isset($_POST[form-data]))
-   array_push($_SESSION["cart_items"], (object)['name' => 'Hello.', 'price' => '$500.00 - $700.00']);
+  array_push($_SESSION["cart_items"], (object)['name' => 'Hello.', 'price' => 100]);
+}
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+
+  if(isset(!$_SESSION['cart_items'])) {
+    addToCart();
+  }
 }
 ?>
 
@@ -176,7 +183,7 @@ function addToCart() {
                 </div>
 
                 <div class="content">
-                  <form id="contact" action="" method="post">
+                  <form id="contact" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="row">
                       <div class="col-md-6 col-sm-12">
                         <fieldset>
@@ -200,7 +207,7 @@ function addToCart() {
                       </div>
                       <div class="col-lg-12">
                         <fieldset>
-                          <button type="submit" id="form-submit" class="main-button">Add to Cart</button>
+                            <button type="submit" id="form-submit" class="main-button">Add to Cart</button>
                         </fieldset>
                       </div>
                     </div>
