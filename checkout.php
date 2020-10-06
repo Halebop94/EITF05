@@ -17,6 +17,14 @@ if(isset($_SESSION["cart_items"])){
   $items = [];
 }
 
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
+    $_SESSION["username"] = trim($_POST["name"])
+    $_SESSION["address"] = trim($_POST["address"])
+  }
+}
+
+
 
 ?>
 
@@ -122,7 +130,7 @@ if(isset($_SESSION["cart_items"])){
 <?php
   echo "<ul style=" . "list-style-type: circle;" . ">";
   foreach ($items as $item) {
-    echo '<li> Möbeln heter ' . $item->getName() . ' den kostar ' . $item->getPrice() . "\n </li>";
+    echo '<li>' . $item->getName() . ' : $' . $item->getPrice() . "\n </li>";
   }
   echo "</ul>";
  ?>
@@ -140,121 +148,35 @@ if(isset($_SESSION["cart_items"])){
           </li>
         </ul>
 
+
         <div class="inner-content">
           <div class="contact-us">
             <div class="contact-form">
-                <form action="#">
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Title:</label>
-                                    <select class="form-control" data-msg-required="This field is required.">
-                                         <option value="">-- Choose --</option>
-                                         <option value="dr">Dr.</option>
-                                         <option value="miss">Miss</option>
-                                         <option value="mr">Mr.</option>
-                                         <option value="mrs">Mrs.</option>
-                                         <option value="ms">Ms.</option>
-                                         <option value="other">Other</option>
-                                         <option value="prof">Prof.</option>
-                                         <option value="rev">Rev.</option>
-                                    </select>
-                               </div>
-                          </div>
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Name:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                     </div>
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Email:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Phone:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                     </div>
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Address 1:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Address 2:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                     </div>
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">City:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">State:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                     </div>
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Zip:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Country:</label>
-                                    <select class="form-control">
-                                         <option value="">-- Choose --</option>
-                                         <option value="">-- Choose --</option>
-                                         <option value="">-- Choose --</option>
-                                         <option value="">-- Choose --</option>
-                                    </select>
-                               </div>
-                          </div>
-                     </div>
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Payment method</label>
+                <!-- Detta syns bara om man inte är inloggad -->
+                  <?php
+                  if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
+                  echo  "<div class=\"row\">";
+                  echo       "<div class=\"col-sm-6 col-xs-12\">";
+                  echo            "<div class=\"form-group\">";
+                  echo                 "<label class=\"control-label\">Name:</label>";
+                  echo                 "<input required type=\"text\" class=\"form-control\" name=\"name\">";
+                  echo            "</div>";
+                  echo       "</div>";
+                  echo      "<div class=\"col-sm-6 col-xs-12\">";
+                  echo            "<div class=\"form-group\">";
+                  echo                 "<label class=\"control-label\">Address 1:</label>";
+                  echo                 "<input required type=\"text\" class=\"form-control\" name=\"address\">";
+                  echo            "</div>";
+                  echo       "</div>";
+                  echo  "</div>";
 
-                                    <select class="form-control">
-                                         <option value="">-- Choose --</option>
-                                         <option value="bank">Bank account</option>
-                                         <option value="cash">Cash</option>
-                                         <option value="paypal">PayPal</option>
-                                    </select>
-                               </div>
-                          </div>
+                  }
+                   ?>
 
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Captcha</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                     </div>
 
                      <div class="clearfix">
-                          <button type="button" class="filled-button pull-left">Back</button>
-
                           <button type="submit" class="filled-button pull-right">Finish</button>
                      </div>
                 </form>
