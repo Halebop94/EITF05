@@ -2,16 +2,22 @@
 
 $root = dirname(__FILE__);
 include "$root/class.product.php";
+$totalcost = 0;
+
 
 if(isset($_SESSION["cart_items"])){
   $serialized = $_SESSION["cart_items"];
 
   foreach ($serialized as $item) {
-    $items[] = unserialize($item, ["Product"]);
+    $readable = unserialize($item, ["Product"]);
+    $totalcost += strval($readable->getPrice());
+    $items[] = $readable;
   }
 }else{
   $items = [];
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -114,9 +120,11 @@ if(isset($_SESSION["cart_items"])){
         <br>
         <br>
 <?php
+  echo "<ul style=" . "list-style-type: circle;" . ">";
   foreach ($items as $item) {
-    echo 'Möbeln heter ' . $item->getName() . ' den kostar ' . $item->getPrice() . "\n";
+    echo '<li> Möbeln heter ' . $item->getName() . ' den kostar ' . $item->getPrice() . "\n </li>";
   }
+  echo "</ul>";
  ?>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
@@ -126,7 +134,7 @@ if(isset($_SESSION["cart_items"])){
                   </div>
 
                   <div class="col-6 text-right">
-                       <strong>$ 128.00</strong>
+                       <strong><?php echo "\$" . "$totalcost" ?></strong>
                   </div>
              </div>
           </li>

@@ -6,23 +6,29 @@ $root = dirname(__FILE__);
 include "$root/class.product.php";
 
 
-$product = $cost = "";
+$product = $productname = $cost = "";
 $cost = "100";
 $amount = "1";
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-  $product = trim($_POST["productname"]);
-  //$cost = trim($_POST["price"]);
+  $product = explode(";",trim($_POST["productname"]));
+  $productname = $product[0];
+  $cost = $product[1];
+  $amount = trim($_POST["amount"]);
 
-  $cartproduct = new Product($product, $cost, $amount);
-
-  if(!isset($_SESSION["cart_items"])){
-    $_SESSION["cart_items"] = array(serialize($cartproduct)) ;
-  }else{
-    $_SESSION["cart_items"][] = serialize($cartproduct);
+  for ($i = 0; $i < $amount; $i++){
+    $cartproduct = new Product($productname, $cost);
+      if(!isset($_SESSION["cart_items"])){
+        $_SESSION["cart_items"] = array(serialize($cartproduct)) ;
+      }else{
+        $_SESSION["cart_items"][] = serialize($cartproduct);
+      }
   }
+
+
+
 }
 
 
@@ -213,10 +219,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <fieldset>
                           <label for="">Extra 1</label>
                           <select name="productname">
-                            <option value="Extra A">Extra A</option>
-                            <option value="0">Extra B</option>
-                            <option value="0">Extra C</option>
-                            <option value="0">Extra D</option>
+                            <option value="Vit Fotölj;150">Vit Fotölj ($150)</option>
+                            <option value="Svart Fotölj;200">Svart Fotölj ($200)</option>
+                            <option value="Grå Fotölj;250">Grå Fotölj ($250)</option>
+                            <option value="Röd Fotölj;300">Röd Fotölj ($300)</option>
                           </select>
                         </fieldset>
                       </div>
@@ -226,7 +232,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                       <div class="col-md-6 col-sm-12">
                         <fieldset>
                           <label for="">Quantity</label>
-                          <input type="text" value="1" required="">
+                          <input type="text" value="1" required="" name="amount">
                         </fieldset>
                       </div>
                       <div class="col-lg-12">
