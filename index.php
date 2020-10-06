@@ -42,37 +42,37 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Online Store Website<em>.</em></h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Online Store Website<em>.</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home
+                <a class="nav-link" href="index.php">Home
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="products.html">Products</a>
+                <a class="nav-link" href="products.php">Products</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="checkout.html">Checkout</a>
+                <a class="nav-link" href="checkout.php">Checkout</a>
               </li>
 
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
 
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="about.html">About Us</a>
-                    <a class="dropdown-item" href="blog.html">Blog</a>
-                    <a class="dropdown-item" href="testimonials.html">Testimonials</a>
-                    <a class="dropdown-item" href="terms.html">Terms</a>
+                    <a class="dropdown-item" href="about.php">About Us</a>
+                    <a class="dropdown-item" href="blog.php">Blog</a>
+                    <a class="dropdown-item" href="testimonials.php">Testimonials</a>
+                    <a class="dropdown-item" href="terms.php">Terms</a>
                   </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="contact.php">Contact Us</a>
               </li>
               <li class="nav-item">
                 <a class = "far fa-user-circle" id="account-button" href="login/welcome.php"></a>
@@ -102,7 +102,7 @@
                   <span> <del>$500.00</del>  $700.00 </span>
                 </div>
 
-                <a href="vacation-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
+                <a href="vacation-details.php"><h4>Lorem ipsum dolor sit amet.</h4></a>
 
                 <ul class="post-info">
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet veniam, architecto invento audantium reprehenderit. Eius, architecto necessitatibus.</li>
@@ -120,7 +120,7 @@
                   <span> <del>$500.00</del>  $700.00 </span>
                 </div>
 
-                <a href="vacation-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
+                <a href="vacation-details.php"><h4>Lorem ipsum dolor sit amet.</h4></a>
 
                 <ul class="post-info">
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi ipsa maxime, recusandae expedita officia eligendi aliquam molestiae qui id eius.</li>
@@ -138,7 +138,7 @@
                   <span> <del>$500.00</del>  $700.00 </span>
                 </div>
 
-                <a href="vacation-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
+                <a href="vacation-details.php"><h4>Lorem ipsum dolor sit amet.</h4></a>
 
                 <ul class="post-info">
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, error repudiandae sunt totam nemo enim minus incidunt veritatis maxime autem!</li>
@@ -156,7 +156,7 @@
                   <span> <del>$500.00</del>  $700.00 </span>
                 </div>
 
-                <a href="vacation-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
+                <a href="vacation-details.php"><h4>Lorem ipsum dolor sit amet.</h4></a>
 
                 <ul class="post-info">
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquid, saepe nemo molestiae. Optio eaque dignissimos, earum officia vel amet.</li>
@@ -174,7 +174,7 @@
                   <span> <del>$500.00</del>  $700.00 </span>
                 </div>
 
-                <a href="vacation-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
+                <a href="vacation-details.php"><h4>Lorem ipsum dolor sit amet.</h4></a>
 
                 <ul class="post-info">
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta id similique quisquam quam maiores adipisci velit molestias illum inventore aliquam.</li>
@@ -191,7 +191,7 @@
                   <span> <del>$500.00</del>  $700.00 </span>
                 </div>
 
-                <a href="vacation-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
+                <a href="vacation-details.php"><h4>Lorem ipsum dolor sit amet.</h4></a>
 
                 <ul class="post-info">
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero incidunt dolorum omnis provident doloribus nisi ratione asperiores, reprehenderit adipisci soluta?</li>
@@ -217,14 +217,14 @@
                 </div>
                 <div class="down-content">
                   <span> <del>$500.00</del>  $700.00 </span>
-                  <a href="products.html"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
+                  <a href="products.php"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
                   <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
                   <div class="post-options">
                     <div class="row">
                       <div class="col-lg-12">
                         <ul class="post-tags">
                           <li><i class="fa fa-bullseye"></i></li>
-                          <li><a href="product-details.html">View Product</a></li>
+                          <li><a href="product-details.php">View Product</a></li>
                         </ul>
                       </div>
                     </div>
@@ -239,14 +239,14 @@
                 </div>
                 <div class="down-content">
                   <span> <del>$500.00</del>  $700.00 </span>
-                  <a href="products.html"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
+                  <a href="products.php"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
                   <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
                   <div class="post-options">
                     <div class="row">
                       <div class="col-lg-12">
                         <ul class="post-tags">
                           <li><i class="fa fa-bullseye"></i></li>
-                          <li><a href="product-details.html">View Product</a></li>
+                          <li><a href="product-details.php">View Product</a></li>
                         </ul>
                       </div>
                     </div>
@@ -261,14 +261,14 @@
                 </div>
                 <div class="down-content">
                   <span> <del>$500.00</del>  $700.00 </span>
-                  <a href="products.html"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
+                  <a href="products.php"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
                   <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
                   <div class="post-options">
                     <div class="row">
                       <div class="col-lg-12">
                         <ul class="post-tags">
                           <li><i class="fa fa-bullseye"></i></li>
-                          <li><a href="product-details.html">View Product</a></li>
+                          <li><a href="product-details.php">View Product</a></li>
                         </ul>
                       </div>
                     </div>
@@ -293,7 +293,7 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="main-button">
-                    <a href="contact.html">Contact Us</a>
+                    <a href="contact.php">Contact Us</a>
                   </div>
                 </div>
               </div>
@@ -315,7 +315,7 @@
                   <img src="assets/images/blog-1-720x480.jpg" alt="">
                 </div>
                 <div class="down-content">
-                  <a href="blog-details.html"><h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4></a>
+                  <a href="blog-details.php"><h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4></a>
 
                   <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
 
@@ -333,7 +333,7 @@
                   <img src="assets/images/blog-2-720x480.jpg" alt="">
                 </div>
                 <div class="down-content">
-                  <a href="blog-details.html"><h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4></a>
+                  <a href="blog-details.php"><h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4></a>
 
                   <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
 
@@ -351,7 +351,7 @@
                   <img src="assets/images/blog-3-720x480.jpg" alt="">
                 </div>
                 <div class="down-content">
-                  <a href="blog-details.html"><h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4></a>
+                  <a href="blog-details.php"><h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h4></a>
 
                   <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
 
@@ -412,7 +412,7 @@
           <div class="row justify-content-md-center">
             <div class="col-md-3">
               <div class="main-button">
-                <a href="testimonials.html">Read More</a>
+                <a href="testimonials.php">Read More</a>
               </div>
             </div>
           </div>
