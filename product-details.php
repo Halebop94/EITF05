@@ -1,13 +1,11 @@
-<<<<<<< HEAD
-=======
+
 <?php session_start();
 function addToCart() {
-  if(isset($_POST[form-data]))
-   array_push($_SESSION["cart_items"], (object)['name' => 'Hello.', 'price' => '$500.00 - $700.00']);
+  if(isset($_POST[form-submit]))
+   array_push($_SESSION["cart_items"], (object)['name' => 'Hello.', 'price' => '$100']);
 }
 ?>
 
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,11 +39,9 @@ function addToCart() {
             <div></div>
             <div></div>
         </div>
-<<<<<<< HEAD
-    </div>  
-=======
     </div>
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
+
+
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
@@ -62,11 +58,7 @@ function addToCart() {
                 <a class="nav-link" href="index.php">Home
                   <span class="sr-only">(current)</span>
                 </a>
-<<<<<<< HEAD
-              </li> 
-=======
               </li>
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
               <li class="nav-item active">
                 <a class="nav-link" href="products.php">Products</a>
               </li>
@@ -77,11 +69,6 @@ function addToCart() {
 
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-<<<<<<< HEAD
-                  
-=======
-
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="about.php">About Us</a>
                     <a class="dropdown-item" href="blog.php">Blog</a>
@@ -114,11 +101,6 @@ function addToCart() {
         </div>
       </section>
     </div>
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
     <!-- Banner Ends Here -->
 
     <section class="blog-posts grid-system">
@@ -187,11 +169,6 @@ function addToCart() {
 
             <br>
             <br>
-<<<<<<< HEAD
-          
-=======
-
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
             <div class="contact-us">
               <div class="sidebar-item contact-form">
                 <div class="sidebar-heading">
@@ -297,11 +274,8 @@ function addToCart() {
     <script src="assets/js/isotope.js"></script>
     <script src="assets/js/accordions.js"></script>
 
-<<<<<<< HEAD
-    <script language = "text/Javascript"> 
-=======
     <script language = "text/Javascript">
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
+
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
       function clearField(t){                   //declaring the array outside of the
       if(! cleared[t.id]){                      // function makes it static and global
@@ -313,8 +287,5 @@ function addToCart() {
     </script>
 
   </body>
-<<<<<<< HEAD
+
 </html>
-=======
-</html>
->>>>>>> 229a08674f4a3dc3a224d67bd277f230c106e757
