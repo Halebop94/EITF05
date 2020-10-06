@@ -19,8 +19,9 @@ if(isset($_SESSION["cart_items"])){
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
-    $_SESSION["username"] = trim($_POST["name"])
-    $_SESSION["address"] = trim($_POST["address"])
+    $_SESSION["username"] = trim($_POST["name"]);
+    $_SESSION["address"] = trim($_POST["address"]);
+    $_SESSION["email"] = trim($_POST["email"]);
   }
 }
 
@@ -168,6 +169,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   echo            "<div class=\"form-group\">";
                   echo                 "<label class=\"control-label\">Address 1:</label>";
                   echo                 "<input required type=\"text\" class=\"form-control\" name=\"address\">";
+                  echo            "</div>";
+                  echo       "</div>";
+                  echo  "</div>";
+                  echo  "<div class=\"row\">";
+                  echo       "<div class=\"col-sm-6 col-xs-12\">";
+                  echo            "<div class=\"form-group\">";
+                  echo                 "<label class=\"control-label\">E-Mail:</label>";
+                  echo                 "<input required type=\"email\" class=\"form-control\" name=\"email\">";
                   echo            "</div>";
                   echo       "</div>";
                   echo  "</div>";
