@@ -43,9 +43,20 @@ foreach ($cart as $item){
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
-    $_SESSION["username"] = trim($_POST["name"]);
-    $_SESSION["address"] = trim($_POST["address"]);
-    $_SESSION["email"] = trim($_POST["email"]);
+    if(isset($_POST["username"]) && isset($_POST["address"]) && isset($_POST["email"])){
+      $_SESSION["username"] = trim($_POST["name"]);
+      $_SESSION["address"] = trim($_POST["address"]);
+      $_SESSION["email"] = trim($_POST["email"]);
+      header("Location: orderconfirm.php");
+      exit();
+
+    }else{
+      header("Location: checkout.php");
+      exit();
+    }
+  }else{
+    header("Location: orderconfirm.php");
+    exit();
   }
 }
 
@@ -225,8 +236,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
                      <div class="clearfix">
-                          <button type="button" class="filled-button pull-left">Back</button>
-                          <button type="button" onclick="window.location='orderconfirm.php'" class="filled-button pull-right">Finish</button>
+                          <button type="submit" class="filled-button pull-right">Finish</button>
                      </div>
                 </form>
             </div>
