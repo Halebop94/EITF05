@@ -62,28 +62,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($password_err) && empty($confirm_password_err)){
         // Prepare an insert statement
         $sql = "UPDATE users SET password = ? WHERE username = ?;";
-        var_dump(mysqli_prepare($link, $sql));
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ss", $param_password, $param_username);
 
             // Set parameters
-            $param_username = $_SESSION["username"];
-            $param_password = password_hash($password, PASSWORD_DEFAULT);// Creates a password hash
+            if(isset($_SESSION["username"])){
+              $param_username = $_SESSION["username"];
+              $param_password = password_hash($password, PASSWORD_DEFAULT);// Creates a password hash
 
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                // Redirect to login page
-                header("location: welcome.php");
+              // Attempt to execute the prepared statement
+              if(mysqli_stmt_execute($stmt)){
+                  // Redirect to login page
+                  header("location: welcome.php");
 
-            } else{
-                echo "Something went wrong. Please try again later.";
+              } else{
+                  echo "Something went wrong. Please try again later.";
+              }
+
+              // Close statement
+              mysqli_stmt_close($stmt);
+          }else {
+          }
             }
 
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }else {
-        }
     }
 
     // Close connection
@@ -119,7 +121,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <div class="form-group">
               <a href="welcome.php" class="btn btn-danger">Return to account</a>
-              <input type="submit" class="btn btn-primary" value="Submit">
+              <input type="submit" class="btn btn-primary" value="Submit" id="subbtn">
             </div>
         </form>
     </div>
