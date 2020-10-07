@@ -1,21 +1,45 @@
 <?php session_start();
 
+// Include config file
+require_once "prodconfig.php";
+
 $root = dirname(__FILE__);
 include "$root/class.product.php";
+
 $totalcost = 0;
+$items = [];
 
-
+// Hämta varukorgen
 if(isset($_SESSION["cart_items"])){
-  $serialized = $_SESSION["cart_items"];
-
-  foreach ($serialized as $item) {
-    $readable = unserialize($item, ["Product"]);
-    $totalcost += strval($readable->getPrice());
-    $items[] = $readable;
-  }
-}else{
-  $items = [];
+  $cart = $_SESSION["cart_items"];
+  }else{
+  $cart = [];
 }
+
+// Prepare a select statement
+$sql = "SELECT name, price FROM products WHERE id = ?";
+$stmt = mysqli_prepare($link, $sql);
+mysqli_stmt_bind_param($stmt, "s", $param_pid);
+
+foreach ($cart as $item){
+  $stmt = mysqli_prepare($link, $sql);
+  mysqli_stmt_bind_param($stmt, "s", $param_pid);
+  $param_pid = $item;
+  // Attempt to execute the prepared statement
+  if(mysqli_stmt_execute($stmt)){
+      /* store result */
+      $res = mysqli_stmt_get_result($stmt);
+      foreach (mysqli_fetch_all($res) as $product) {
+        $items[] = new Product($product[0], $product[1]);
+      }
+
+
+  }else{
+      echo "Oops! Something went wrong. Please try again later.";
+  }
+}
+
+
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
@@ -126,7 +150,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="row">
             <div class="col-lg-12">
               <div class="text-content">
-                <h4>Checkout</h4>  
+                <h4>Checkout</h4>
               </div>
             </div>
           </div>
@@ -140,13 +164,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       <div class="container">
         <br>
         <br>
-<?php
-  echo "<ul style=" . "list-style-type: circle;" . ">";
-  foreach ($items as $item) {
-    echo '<li>' . $item->getName() . ' : $' . $item->getPrice() . "\n </li>";
-  }
-  echo "</ul>";
- ?>
+
+    <!-- Varukorgen -->
+        <?php
+          echo "<ul style=" . "list-style-type: circle;" . ">";
+          foreach ($items as $item) {
+            echo '<li>' . $item->getArticleName() . ' : $' . $item->getPrice() . "\n </li>";
+          }
+          echo "</ul>";
+         ?>
+
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <div class="row">
@@ -161,7 +188,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           </li>
         </ul>
 
-
+        <!-- Beställningsformulär -->
         <div class="inner-content">
           <div class="contact-us">
             <div class="contact-form">

@@ -6,33 +6,28 @@ $root = dirname(__FILE__);
 include "$root/class.product.php";
 
 
-$product = $productname = $cost = "";
-$cost = "100";
+$product = "";
 $amount = "1";
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-  $product = explode(";",trim($_POST["productname"]));
-  $productname = $product[0];
-  $cost = $product[1];
+  $product = trim($_POST["productname"]);
   $amount = trim($_POST["amount"]);
 
   for ($i = 0; $i < $amount; $i++){
-    $cartproduct = new Product($productname, $cost);
       if(!isset($_SESSION["cart_items"])){
-        $_SESSION["cart_items"] = array(serialize($cartproduct)) ;
+        $_SESSION["cart_items"] = array($product) ;
       }else{
-        $_SESSION["cart_items"][] = serialize($cartproduct);
+        $_SESSION["cart_items"][] = $product;
       }
   }
 
-
-
+foreach ($_SESSION["cart_items"] as $i) {
+  echo $i;
 }
 
-
-
+}
 ?>
 
 <!DOCTYPE html>
@@ -200,10 +195,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <fieldset>
                           <label for="">Extra 1</label>
                           <select name="productname">
-                            <option value="Vit Fåtölj;150">Vit Fåtölj ($150)</option>
-                            <option value="Svart Fåtölj;200">Svart Fåtölj ($200)</option>
-                            <option value="Grå Fåtölj;250">Grå Fåtölj ($250)</option>
-                            <option value="Rosa Fåtölj;300">Rosa Fåtölj ($300)</option>
+                            <option value="f_white">Vit Fåtölj ($150)</option>
+                            <option value="f_black">Svart Fåtölj ($200)</option>
+                            <option value="f_gray">Grå Fåtölj ($250)</option>
+                            <option value="f_pink">Rosa Fåtölj ($300)</option>
                           </select>
                         </fieldset>
                       </div>
