@@ -1,0 +1,9 @@
+CREATE TABLE comments (
+    commenter VARCHAR(100) NOT NULL,
+    comment VARCHAR(100) NOT NULL
+);
+
+INSERT INTO comments(commenter, comment)
+VALUES  ("Pelle", "Mycket fin fåtölj!"),
+        ("Per", "<script>alert(\"Du är nu hackad!\")</script>")
+;

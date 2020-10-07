@@ -4,29 +4,75 @@
 session_start();
 $root = dirname(__FILE__);
 include "$root/class.product.php";
+include "$root/class.comment.php";
 
+require_once "commentconfig.php";
 
-$product = "";
+$product = $commentcontent = $commenter = "";
+$comments = [];
 $amount = "1";
 
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+// Prepare a select statement
+$sql = "SELECT * FROM comments";
 
-  $product = trim($_POST["productname"]);
-  $amount = trim($_POST["amount"]);
-
-  for ($i = 0; $i < $amount; $i++){
-      if(!isset($_SESSION["cart_items"])){
-        $_SESSION["cart_items"] = array($product) ;
-      }else{
-        $_SESSION["cart_items"][] = $product;
+  $stmt = mysqli_prepare($commentlink, $sql);
+  // Attempt to execute the prepared statement
+  if(mysqli_stmt_execute($stmt)){
+      /* store result */
+      $res = mysqli_stmt_get_result($stmt);
+      foreach (mysqli_fetch_all($res) as $comment) {
+        $comments[] = new Comment($comment[0], $comment[1]);
       }
-  }
 
-foreach ($_SESSION["cart_items"] as $i) {
-  echo $i;
+
+  }else{
+      echo "Oops! Something went wrong. Please try again later.";
 }
 
+
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  if(isset($_POST["submit"])){
+    if($_POST["submit"] == "toCart"){
+      $product = trim($_POST["productname"]);
+      $amount = trim($_POST["amount"]);
+      for ($i = 0; $i < $amount; $i++){
+          if(!isset($_SESSION["cart_items"])){
+            $_SESSION["cart_items"] = array($product) ;
+          }else{
+            $_SESSION["cart_items"][] = $product;
+          }
+      }
+    }
+      elseif($_POST["submit"] == "comment"){
+        if(isset($_SESSION["username"])){
+          $commenter = $_SESSION["username"];
+        }else{
+          $commenter = "anonymous";
+        }
+
+        if(isset($_POST["commentcontent"])){
+          $commentcontent = $_POST["commentcontent"];
+      }
+
+      // Prepare a select statement
+      $sql = "INSERT INTO comments(commenter, comment) VALUES (?, ?);";
+        $stmt = mysqli_prepare($commentlink, $sql);
+        mysqli_stmt_bind_param($stmt, "ss", $param_commenter, $param_comment);
+        $param_commenter = $commenter;
+        $param_comment = $commentcontents;
+
+        // Attempt to execute the prepared statement
+        if(mysqli_stmt_execute($stmt)){
+            header("product-details.php");
+            exit();
+        }else{
+            echo "Oops! Something went wrong. Please try again later.";
+      }
+    }
+  }
 }
 ?>
 
@@ -213,7 +259,7 @@ foreach ($_SESSION["cart_items"] as $i) {
                       </div>
                       <div class="col-lg-12">
                         <fieldset>
-                            <button type="submit" id="form-submit" class="main-button">Add to Cart</button>
+                            <button name="submit" value="toCart" type="submit" id="form-submit" class="main-button">Add to Cart</button>
                         </fieldset>
                       </div>
                     </div>
@@ -232,11 +278,15 @@ foreach ($_SESSION["cart_items"] as $i) {
       <div class="container">
         <div class="sidebar-item recent-posts">
           <div class="sidebar-heading">
-            <h2>Description</h2>
+            <h2>Comments</h2>
           </div>
 
           <div class="content">
-            <p>Lyxig fåtölj som kan göra den mest kräsna sittaren nöjd.
+            <?php foreach ($comments as $comment) {
+              echo "<b>" . $comment->getCommenter() . "</b><br>";
+              echo $comment->getComment();
+              echo "<br><br>";
+            } ?>
           </div>
 
           <br>
