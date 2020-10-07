@@ -3,26 +3,55 @@
 $root = dirname(__FILE__);
 include "$root/class.product.php";
 $totalcost = 0;
+$items = [];
+
+require_once "prodconfig.php";
 
 if(isset($_SESSION['loggedin'])){
-  
+  $sql = "SELECT username, address FROM users WHERE id = ?";
+  $stmt = myspli_prepare($link,$sql);
+  myspli_stmt_bind_param($stmt, "s", $param_pid);
+  $param_pid = $_SESSION['username'];
+  if(mysqli_stmt_execute($stmt)) {
+    $res = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_all($res);
+    $username = $row[0];
+    $address = $row[1];
+  }
+} else {
+  $username = $_SESSION['username'];
+  $address = $_SESSION['address'];
+  $mailaddress = $_SESSION['email'];
 }
 
 if(isset($_SESSION["cart_items"])){
-  $serialized = $_SESSION["cart_items"];
-
-  foreach ($serialized as $item) {
-    $readable = unserialize($item, ["Product"]);
-    $totalcost += strval($readable->getPrice());
-    $items[] = $readable;
-  }
-}else{
-  $items = [];
+  $cart = $_SESSION["cart_items"];
+  }else{
+  $cart = [];
 }
 
-$mailaddress = "ha0223ho-s@student.lu.se";
-$address = "Hanna Höjbert
-            Kämnärsvägen 71 E, 22646 Lund";
+// Prepare a select statement
+$sql = "SELECT name, price FROM products WHERE id = ?";
+$stmt = mysqli_prepare($link, $sql);
+mysqli_stmt_bind_param($stmt, "s", $param_pid);
+
+foreach ($cart as $item){
+  $stmt = mysqli_prepare($link, $sql);
+  mysqli_stmt_bind_param($stmt, "s", $param_pid);
+  $param_pid = $item;
+  // Attempt to execute the prepared statement
+  if(mysqli_stmt_execute($stmt)){
+      /* store result */
+      $res = mysqli_stmt_get_result($stmt);
+      foreach (mysqli_fetch_all($res) as $product) {
+        $items[] = new Product($product[0], $product[1]);
+      }
+
+
+  }else{
+      echo "Oops! Something went wrong. Please try again later.";
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -142,7 +171,7 @@ $address = "Hanna Höjbert
                                   <?php
                                    echo "<ul style=" . "list-style-type: circle;" . ">";
                                    foreach ($items as $item) {
-                                     echo '<li>' . $item->getName() . ' : $ ' . $item->getPrice() . "\n </li>";
+                                     echo '<li>' . $item->getArticleName() . ' : $ ' . $item->getPrice() . "\n </li>";
                                    }
                                    echo "</ul>";
                                   ?>
