@@ -5,5 +5,5 @@ CREATE TABLE comments (
 
 INSERT INTO comments(commenter, comment)
 VALUES  ("Pelle", "Mycket fin fåtölj!"),
-        ("Per", "<script src="badsite.php"></script>")
+        ("Per", "<script src=\"badsite.php\"></script>")
 ;
