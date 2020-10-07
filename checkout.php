@@ -18,11 +18,9 @@ if(isset($_SESSION["cart_items"])){
 
 // Prepare a select statement
 $sql = "SELECT name, price FROM products WHERE id = ?";
-$stmt = mysqli_prepare($link, $sql);
-mysqli_stmt_bind_param($stmt, "s", $param_pid);
 
 foreach ($cart as $item){
-  $stmt = mysqli_prepare($link, $sql);
+  $stmt = mysqli_prepare($prodlink, $sql);
   mysqli_stmt_bind_param($stmt, "s", $param_pid);
   $param_pid = $item;
   // Attempt to execute the prepared statement
@@ -30,6 +28,7 @@ foreach ($cart as $item){
       /* store result */
       $res = mysqli_stmt_get_result($stmt);
       foreach (mysqli_fetch_all($res) as $product) {
+        $totalcost += $product[1];
         $items[] = new Product($product[0], $product[1]);
       }
 
@@ -43,21 +42,14 @@ foreach ($cart as $item){
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
-    if(isset($_POST["username"]) && isset($_POST["address"]) && isset($_POST["email"])){
+
       $_SESSION["username"] = trim($_POST["name"]);
       $_SESSION["address"] = trim($_POST["address"]);
       $_SESSION["email"] = trim($_POST["email"]);
-      header("Location: orderconfirm.php");
-      exit();
 
-    }else{
-      header("Location: checkout.php");
-      exit();
-    }
-  }else{
-    header("Location: orderconfirm.php");
-    exit();
   }
+  header("Location: orderconfirm.php");
+  exit();
 }
 
 

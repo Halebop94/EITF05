@@ -1,12 +1,12 @@
 <?php
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
-define('DB_NAME', 'prodDB');
+define('prodDB_SERVER', 'localhost');
+define('prodDB_USERNAME', 'root');
+define('prodDB_PASSWORD', '');
+define('prodDB_NAME', 'prodDB');
 
-$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$prodlink = mysqli_connect(prodDB_SERVER, prodDB_USERNAME, prodDB_PASSWORD, prodDB_NAME);
 
-if($link === false){
+if($prodlink === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 ?>

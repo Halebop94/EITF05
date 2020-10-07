@@ -2,26 +2,35 @@
 
 $root = dirname(__FILE__);
 include "$root/class.product.php";
+
+$username = $address = $email = "";
+
 $totalcost = 0;
 $items = [];
-
+require_once "login/config.php";
 require_once "prodconfig.php";
 
 if(isset($_SESSION['loggedin'])){
-  $sql = "SELECT username, address FROM users WHERE id = ?";
-  $stmt = myspli_prepare($link,$sql);
-  myspli_stmt_bind_param($stmt, "s", $param_pid);
-  $param_pid = $_SESSION['username'];
-  if(mysqli_stmt_execute($stmt)) {
-    $res = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_all($res);
-    $username = $row[0];
-    $address = $row[1];
+  $sql = "SELECT email, address FROM users WHERE username = ?";
+
+  if ($stmt = mysqli_prepare($link,$sql)){
+    mysqli_stmt_bind_param($stmt, "s", $param_username);
+    $param_username = $_SESSION['username'];
+
+    if(mysqli_stmt_execute($stmt)) {
+      $res = mysqli_stmt_get_result($stmt);
+      $row = mysqli_fetch_all($res)[0];
+      $email = $row[0];
+      $address = $row[1];
+    }
+  }else {
+    echo "bad user-query";
   }
+
 } else {
   $username = $_SESSION['username'];
   $address = $_SESSION['address'];
-  $mailaddress = $_SESSION['email'];
+  $email = $_SESSION['email'];
 }
 
 if(isset($_SESSION["cart_items"])){
@@ -32,11 +41,11 @@ if(isset($_SESSION["cart_items"])){
 
 // Prepare a select statement
 $sql = "SELECT name, price FROM products WHERE id = ?";
-$stmt = mysqli_prepare($link, $sql);
+$stmt = mysqli_prepare($prodlink, $sql);
 mysqli_stmt_bind_param($stmt, "s", $param_pid);
 
 foreach ($cart as $item){
-  $stmt = mysqli_prepare($link, $sql);
+  $stmt = mysqli_prepare($prodlink, $sql);
   mysqli_stmt_bind_param($stmt, "s", $param_pid);
   $param_pid = $item;
   // Attempt to execute the prepared statement
@@ -45,6 +54,7 @@ foreach ($cart as $item){
       $res = mysqli_stmt_get_result($stmt);
       foreach (mysqli_fetch_all($res) as $product) {
         $items[] = new Product($product[0], $product[1]);
+        $totalcost += $product[1];
       }
 
 
@@ -157,7 +167,7 @@ foreach ($cart as $item){
           </li>
         </ul>
 
-        <h4>An order confirmation is sent to <?php echo $mailaddress ?></h4>
+        <h4>An order confirmation is sent to <?php echo $email ?></h4>
         <h6>Delivery address: <?php echo $address ?>
 
 
