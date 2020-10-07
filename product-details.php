@@ -22,6 +22,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $_SESSION["cart_items"][] = $product;
       }
   }
+
+foreach ($_SESSION["cart_items"] as $i) {
+  echo $i;
+}
+
 }
 ?>
 

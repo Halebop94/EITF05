@@ -29,8 +29,10 @@ foreach ($cart as $item){
   if(mysqli_stmt_execute($stmt)){
       /* store result */
       $res = mysqli_stmt_get_result($stmt);
-      var_dump(mysqli_fetch_all($res));
-      //$items[] = new Product(mysqli_fetch_all($res)[0], mysqli_fetch_all($res)[1]);
+      foreach (mysqli_fetch_all($res) as $product) {
+        $items[] = new Product($product[0], $product[1]);
+      }
+
 
   }else{
       echo "Oops! Something went wrong. Please try again later.";
@@ -167,7 +169,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <?php
           echo "<ul style=" . "list-style-type: circle;" . ">";
           foreach ($items as $item) {
-            //echo '<li>' . $item->getName() . ' : $' . $item->getPrice() . "\n </li>";
+            echo '<li>' . $item->getArticleName() . ' : $' . $item->getPrice() . "\n </li>";
           }
           echo "</ul>";
          ?>
