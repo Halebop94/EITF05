@@ -45,31 +45,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $_SESSION["cart_items"][] = $product;
           }
       }
-    }
-      elseif($_POST["submit"] == "comment"){
-        if(isset($_SESSION["username"])){
-          $commenter = $_SESSION["username"];
-        }else{
-          $commenter = "anonymous";
-        }
-
-        if(isset($_POST["commentcontent"])){
-          $commentcontent = $_POST["commentcontent"];
+    }elseif($_POST["submit"] == "comment"){
+      if(isset($_SESSION["username"])){
+        $commenter = $_SESSION["username"];
+      }else{
+        $commenter = "anonymous";
       }
 
-      // Prepare a select statement
-      $sql = "INSERT INTO comments(commenter, comment) VALUES (?, ?);";
-        $stmt = mysqli_prepare($commentlink, $sql);
-        mysqli_stmt_bind_param($stmt, "ss", $param_commenter, $param_comment);
-        $param_commenter = $commenter;
-        $param_comment = $commentcontents;
+      if(isset($_POST["commentcontent"])){
+        $commentcontent = $_POST["commentcontent"];
+      }
 
-        // Attempt to execute the prepared statement
-        if(mysqli_stmt_execute($stmt)){
-            header("product-details.php");
-            exit();
-        }else{
-            echo "Oops! Something went wrong. Please try again later.";
+    // Prepare a select statement
+      $sql = "INSERT INTO comments(commenter, comment) VALUES (?, ?);";
+      $stmt = mysqli_prepare($commentlink, $sql);
+      mysqli_stmt_bind_param($stmt, "ss", $param_commenter, $param_comment);
+      $param_commenter = $commenter;
+      $param_comment = $commentcontent;
+
+      // Attempt to execute the prepared statement
+      if(mysqli_stmt_execute($stmt)){
+          header("location: product-details.php");
+      }else{
+          echo "Oops! Something went wrong. Please try again later.";
       }
     }
   }
@@ -276,22 +274,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <div class="section contact-us">
       <div class="container">
-        <div class="sidebar-item recent-posts">
-          <div class="sidebar-heading">
-            <h2>Comments</h2>
-          </div>
+        <form id="comment" method="post">
+          <div class="sidebar-item recent-posts">
+            <div class="sidebar-heading">
+              <h2>Comments</h2>
+            </div>
+            <li class="list-group-item">
+              <div class="form-group "> <!--<?php echo (!empty($username_err)) ? 'has-error' : ''; ?>-->
+                  <label><b>Comment</b></label>
+                  <input type="text" required name="commentcontent" class="form-control" placeholder="Enter comment here"> <!-- <?php echo $username; ?> -->
+                  <br>
+                  <div class="col-lg-12">
+                    <fieldset>
+                        <button name="submit" value="comment" type="submit" id="form-submit" class="main-button pull-right">Publish</button>
+                    </fieldset>
+                  </div>
+              </div>
+            </li>
 
-          <div class="content">
-            <?php foreach ($comments as $comment) {
-              echo "<b>" . $comment->getCommenter() . "</b><br>";
-              echo $comment->getComment();
-              echo "<br><br>";
-            } ?>
-          </div>
+            <br>
 
-          <br>
-          <br>
-        </div>
+            <div class="content">
+              <?php foreach ($comments as $comment) {
+                echo "<b>" . $comment->getCommenter() . "</b><br>";
+                echo $comment->getComment();
+                echo "<br><br>";
+              } ?>
+            </div>
+
+            <br>
+            <br>
+          </div>
+        </form>
       </div>
     </div>
 
