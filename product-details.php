@@ -6,33 +6,28 @@ $root = dirname(__FILE__);
 include "$root/class.product.php";
 
 
-$product = $productname = $cost = "";
-$cost = "100";
+$product = "";
 $amount = "1";
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-  $product = explode(";",trim($_POST["productname"]));
-  $productname = $product[0];
-  $cost = $product[1];
+  $product = trim($_POST["productname"]);
   $amount = trim($_POST["amount"]);
 
   for ($i = 0; $i < $amount; $i++){
-    $cartproduct = new Product($productname, $cost);
       if(!isset($_SESSION["cart_items"])){
-        $_SESSION["cart_items"] = array(serialize($cartproduct)) ;
+        $_SESSION["cart_items"] = array($product) ;
       }else{
-        $_SESSION["cart_items"][] = serialize($cartproduct);
+        $_SESSION["cart_items"][] = $product;
       }
   }
 
-
-
+foreach ($_SESSION["cart_items"] as $i) {
+  echo $i;
 }
 
-
-
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,16 +41,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
 
-    <title>PHPJabbers.com | Free Online Store Website Template</title>
+    <title>Fåtöljbutiken.se | Prima fåtölj</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- FA Icons -->
+    <script src="https://kit.fontawesome.com/215908d2e8.js" crossorigin="anonymous"></script>
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="stylesheet.css">
+
 
   </head>
 
@@ -77,7 +76,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.php"><h2>Online Store Website<em>.</em></h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Fåtöljbutiken.se</h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -98,6 +97,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
+
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="about.php">About Us</a>
                     <a class="dropdown-item" href="blog.php">Blog</a>
@@ -130,8 +130,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="row">
             <div class="col-lg-12">
               <div class="text-content">
-                <h4>$500.00 - $700.00</h4>
-                <h2>Lorem ipsum dolor sit amet.</h2>
+                <h4>$150.00 - $300.00</h4>
+                <h2>Prima Fåtölj</h2>
               </div>
             </div>
           </div>
@@ -163,31 +163,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
                 <br>
               </div>
-              <div class="col-sm-4 col-6">
-                <div>
-                  <img src="assets/images/product-3-720x480.jpg" alt="" class="img-fluid">
-                </div>
-                <br>
-              </div>
 
-              <div class="col-sm-4 col-6">
-                <div>
-                  <img src="assets/images/product-4-720x480.jpg" alt="" class="img-fluid">
-                </div>
-                <br>
-              </div>
-              <div class="col-sm-4 col-6">
-                <div>
-                  <img src="assets/images/product-5-720x480.jpg" alt="" class="img-fluid">
-                </div>
-                <br>
-              </div>
-              <div class="col-sm-4 col-6">
-                <div>
-                  <img src="assets/images/product-6-720x480.jpg" alt="" class="img-fluid">
-                </div>
-                <br>
-              </div>
             </div>
 
             <br>
@@ -200,7 +176,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
               </div>
 
               <div class="content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed velit eveniet quibusdam animi eos, cum! Alias, dicta. Minima repudiandae sequi iste, nostrum! Neque temporibus officiis harum esse aperiam voluptate? Quibusdam.</p>
+                <p>Lyxig fåtölj som kan göra den mest kräsna sittaren nöjd.
               </div>
             </div>
 
@@ -219,17 +195,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <fieldset>
                           <label for="">Extra 1</label>
                           <select name="productname">
-<<<<<<< Updated upstream
-                            <option value="Vit Fotölj;150">Vit Fotölj ($150)</option>
-                            <option value="Svart Fotölj;200">Svart Fotölj ($200)</option>
-                            <option value="Grå Fotölj;250">Grå Fotölj ($250)</option>
-                            <option value="Röd Fotölj;300">Röd Fotölj ($300)</option>
-=======
-                            <option value="Extra A">Extra A</option>
-                            <option value="0">Extra B</option>
-                            <option value="0">Extra C</option>
-                            <option value="0">Extra D</option>
->>>>>>> Stashed changes
+                            <option value="f_white">Vit Fåtölj ($150)</option>
+                            <option value="f_black">Svart Fåtölj ($200)</option>
+                            <option value="f_gray">Grå Fåtölj ($250)</option>
+                            <option value="f_pink">Rosa Fåtölj ($300)</option>
                           </select>
                         </fieldset>
                       </div>
@@ -267,15 +236,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           </div>
 
           <div class="content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia doloremque sit, enim sint odio corporis illum perferendis, unde repellendus aut dolore doloribus minima qui ullam vel possimus magnam ipsa deleniti.</p>
-
-            <br>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus ducimus ab numquam magnam aliquid, odit provident consectetur corporis eius blanditiis alias nulla commodi qui voluptatibus laudantium quaerat tempore possimus esse nam sed accusantium inventore? Sapiente minima dicta sed quia sunt?</p>
-
-            <br>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum qui, corrupti consequuntur. Officia consectetur error amet debitis esse minus quasi, dicta suscipit tempora, natus, vitae voluptatem quae libero. Sunt nulla culpa impedit! Aliquid cupiditate, impedit reiciendis dolores, illo adipisci, omnis dolor distinctio voluptas expedita maxime officiis maiores cumque sequi quaerat culpa blanditiis. Quia tenetur distinctio rem, quibusdam officiis voluptatum neque!</p>
+            <p>Lyxig fåtölj som kan göra den mest kräsna sittaren nöjd.
           </div>
 
           <br>
@@ -298,8 +259,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="col-lg-12">
             <div class="copyright-text">
               <p>
-                Copyright © 2020 Company Name
-                | Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+                Copyright © 2020 Fåtöljbutiken.se
               </p>
             </div>
           </div>

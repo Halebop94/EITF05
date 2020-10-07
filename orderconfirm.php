@@ -4,6 +4,9 @@ $root = dirname(__FILE__);
 include "$root/class.product.php";
 $totalcost = 0;
 
+if(isset($_SESSION['loggedin'])){
+  
+}
 
 if(isset($_SESSION["cart_items"])){
   $serialized = $_SESSION["cart_items"];
@@ -16,6 +19,10 @@ if(isset($_SESSION["cart_items"])){
 }else{
   $items = [];
 }
+
+$mailaddress = "ha0223ho-s@student.lu.se";
+$address = "Hanna Höjbert
+            Kämnärsvägen 71 E, 22646 Lund";
 ?>
 
 <!DOCTYPE html>
@@ -114,21 +121,25 @@ if(isset($_SESSION["cart_items"])){
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <div class="row">
-                  <div class="col-6">
+                  <div class="col-20">
                        <h2>Order confirmation</h2>
                   </div>
              </div>
           </li>
         </ul>
 
+        <h4>An order confirmation is sent to <?php echo $mailaddress ?></h4>
+        <h6>Delivery address: <?php echo $address ?>
+
+
         <div class="inner-content">
           <div class="contact-us">
             <div class="contact-form">
                 <form action="#">
                      <div class="row">
-                          <div class="col-2">
+                          <div class="col-20">
                                <div class="form-group">
-                                 <?php
+                                  <?php
                                    echo "<ul style=" . "list-style-type: circle;" . ">";
                                    foreach ($items as $item) {
                                      echo '<li>' . $item->getName() . ' : $ ' . $item->getPrice() . "\n </li>";
@@ -142,6 +153,19 @@ if(isset($_SESSION["cart_items"])){
             </div>
           </div>
         </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <div class="row">
+                  <div class="col-20">
+                       <em>Sub-total</em>
+                  </div>
+
+                  <div class="col-6 text-right">
+                       <strong><?php echo "\$" . "$totalcost" ?></strong>
+                  </div>
+             </div>
+          </li>
+        </ul>
       </div>
     </section>
 

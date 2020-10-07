@@ -1,21 +1,54 @@
 <?php session_start();
 
+// Include config file
+require_once "prodconfig.php";
+
 $root = dirname(__FILE__);
 include "$root/class.product.php";
+
 $totalcost = 0;
+$items = [];
 
-
+// Hämta varukorgen
 if(isset($_SESSION["cart_items"])){
-  $serialized = $_SESSION["cart_items"];
-
-  foreach ($serialized as $item) {
-    $readable = unserialize($item, ["Product"]);
-    $totalcost += strval($readable->getPrice());
-    $items[] = $readable;
-  }
-}else{
-  $items = [];
+  $cart = $_SESSION["cart_items"];
+  }else{
+  $cart = [];
 }
+
+// Prepare a select statement
+$sql = "SELECT name, price FROM products WHERE id = ?";
+$stmt = mysqli_prepare($link, $sql);
+mysqli_stmt_bind_param($stmt, "s", $param_pid);
+
+foreach ($cart as $item){
+  $stmt = mysqli_prepare($link, $sql);
+  mysqli_stmt_bind_param($stmt, "s", $param_pid);
+  $param_pid = $item;
+  // Attempt to execute the prepared statement
+  if(mysqli_stmt_execute($stmt)){
+      /* store result */
+      $res = mysqli_stmt_get_result($stmt);
+      foreach (mysqli_fetch_all($res) as $product) {
+        $items[] = new Product($product[0], $product[1]);
+      }
+
+
+  }else{
+      echo "Oops! Something went wrong. Please try again later.";
+  }
+}
+
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
+    $_SESSION["username"] = trim($_POST["name"]);
+    $_SESSION["address"] = trim($_POST["address"]);
+    $_SESSION["email"] = trim($_POST["email"]);
+  }
+}
+
 
 
 ?>
@@ -31,16 +64,20 @@ if(isset($_SESSION["cart_items"])){
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
 
-    <title>PHPJabbers.com | Free Online Store Website Template</title>
+    <title>Fåtöljbutiken.se | Checkout</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- FA Icons -->
+    <script src="https://kit.fontawesome.com/215908d2e8.js" crossorigin="anonymous"></script>
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="stylesheet.css">
+
   </head>
 
   <body>
@@ -59,7 +96,7 @@ if(isset($_SESSION["cart_items"])){
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.php"><h2>Online Store Website<em>.</em></h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Fåtöljbutiken.se</h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -83,6 +120,7 @@ if(isset($_SESSION["cart_items"])){
 
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="about.php">About Us</a>
+                    <a class="dropdown-item" href="blog.php">Blog</a>
                     <a class="dropdown-item" href="testimonials.php">Testimonials</a>
                     <a class="dropdown-item" href="terms.php">Terms</a>
                   </div>
@@ -90,6 +128,14 @@ if(isset($_SESSION["cart_items"])){
               <li class="nav-item">
                 <a class="nav-link" href="contact.php">Contact Us</a>
               </li>
+              <li class="nav-item">
+                <a class = "far fa-user-circle" id="account-button" href="login/welcome.php"></a>
+              </li>
+              <?php if(isset($_SESSION["loggedin"])) {
+                $uname = htmlspecialchars($_SESSION["username"]);
+                echo "<li class=\"nav-item row align-items-center\"><p id=\"welcome-message\">Welcome, <b>" . $uname ."</b>!</p></li>";
+              }
+              ?>
             </ul>
           </div>
         </div>
@@ -105,7 +151,6 @@ if(isset($_SESSION["cart_items"])){
             <div class="col-lg-12">
               <div class="text-content">
                 <h4>Checkout</h4>
-                <h2>Lorem ipsum dolor sit amet.</h2>
               </div>
             </div>
           </div>
@@ -119,13 +164,16 @@ if(isset($_SESSION["cart_items"])){
       <div class="container">
         <br>
         <br>
-<?php
-  echo "<ul style=" . "list-style-type: circle;" . ">";
-  foreach ($items as $item) {
-    echo '<li> Möbeln heter ' . $item->getName() . ' den kostar ' . $item->getPrice() . "\n </li>";
-  }
-  echo "</ul>";
- ?>
+
+    <!-- Varukorgen -->
+        <?php
+          echo "<ul style=" . "list-style-type: circle;" . ">";
+          foreach ($items as $item) {
+            echo '<li>' . $item->getArticleName() . ' : $' . $item->getPrice() . "\n </li>";
+          }
+          echo "</ul>";
+         ?>
+
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <div class="row">
@@ -140,117 +188,41 @@ if(isset($_SESSION["cart_items"])){
           </li>
         </ul>
 
+        <!-- Beställningsformulär -->
         <div class="inner-content">
           <div class="contact-us">
             <div class="contact-form">
-                <form action="#">
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Title:</label>
-                                    <select class="form-control" data-msg-required="This field is required.">
-                                         <option value="">-- Choose --</option>
-                                         <option value="dr">Dr.</option>
-                                         <option value="miss">Miss</option>
-                                         <option value="mr">Mr.</option>
-                                         <option value="mrs">Mrs.</option>
-                                         <option value="ms">Ms.</option>
-                                         <option value="other">Other</option>
-                                         <option value="prof">Prof.</option>
-                                         <option value="rev">Rev.</option>
-                                    </select>
-                               </div>
-                          </div>
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Name:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                     </div>
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Email:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Phone:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                     </div>
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Address 1:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Address 2:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                     </div>
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">City:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">State:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                     </div>
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Zip:</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Country:</label>
-                                    <select class="form-control">
-                                         <option value="">-- Choose --</option>
-                                         <option value="">-- Choose --</option>
-                                         <option value="">-- Choose --</option>
-                                         <option value="">-- Choose --</option>
-                                    </select>
-                               </div>
-                          </div>
-                     </div>
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-                     <div class="row">
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Payment method</label>
+                <!-- Detta syns bara om man inte är inloggad -->
+                  <?php
+                  if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
+                  echo  "<div class=\"row\">";
+                  echo       "<div class=\"col-sm-6 col-xs-12\">";
+                  echo            "<div class=\"form-group\">";
+                  echo                 "<label class=\"control-label\">Name:</label>";
+                  echo                 "<input required type=\"text\" class=\"form-control\" name=\"name\">";
+                  echo            "</div>";
+                  echo       "</div>";
+                  echo      "<div class=\"col-sm-6 col-xs-12\">";
+                  echo            "<div class=\"form-group\">";
+                  echo                 "<label class=\"control-label\">Address 1:</label>";
+                  echo                 "<input required type=\"text\" class=\"form-control\" name=\"address\">";
+                  echo            "</div>";
+                  echo       "</div>";
+                  echo  "</div>";
+                  echo  "<div class=\"row\">";
+                  echo       "<div class=\"col-sm-6 col-xs-12\">";
+                  echo            "<div class=\"form-group\">";
+                  echo                 "<label class=\"control-label\">E-Mail:</label>";
+                  echo                 "<input required type=\"email\" class=\"form-control\" name=\"email\">";
+                  echo            "</div>";
+                  echo       "</div>";
+                  echo  "</div>";
 
-                                    <select class="form-control">
-                                         <option value="">-- Choose --</option>
-                                         <option value="bank">Bank account</option>
-                                         <option value="cash">Cash</option>
-                                         <option value="paypal">PayPal</option>
-                                    </select>
-                               </div>
-                          </div>
+                  }
+                   ?>
 
-                          <div class="col-sm-6 col-xs-12">
-                               <div class="form-group">
-                                    <label class="control-label">Captcha</label>
-                                    <input type="text" class="form-control">
-                               </div>
-                          </div>
-                     </div>
 
                      <div class="clearfix">
                           <button type="button" class="filled-button pull-left">Back</button>
@@ -277,8 +249,7 @@ if(isset($_SESSION["cart_items"])){
           <div class="col-lg-12">
             <div class="copyright-text">
               <p>
-                Copyright © 2020 Company Name
-                | Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+                Copyright © 2020 Fåtöljbutiken.se
               </p>
             </div>
           </div>

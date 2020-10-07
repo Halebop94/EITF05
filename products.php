@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php
+session_start();
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,16 +13,20 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
 
-    <title>PHPJabbers.com | Free Online Store Website Template</title>
+    <title>Fåtöljbutiken.se | Products</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- FA Icons -->
+    <script src="https://kit.fontawesome.com/215908d2e8.js" crossorigin="anonymous"></script>
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="stylesheet.css">
+
 
   </head>
 
@@ -41,7 +47,7 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.php"><h2>Online Store Website<em>.</em></h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Fåtöljbutiken.se</h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -65,6 +71,7 @@
 
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="about.php">About Us</a>
+                    <a class="dropdown-item" href="blog.php">Blog</a>
                     <a class="dropdown-item" href="testimonials.php">Testimonials</a>
                     <a class="dropdown-item" href="terms.php">Terms</a>
                   </div>
@@ -72,6 +79,14 @@
               <li class="nav-item">
                 <a class="nav-link" href="contact.php">Contact Us</a>
               </li>
+              <li class="nav-item">
+                <a class = "far fa-user-circle" id="account-button" href="login/welcome.php"></a>
+              </li>
+              <?php if(isset($_SESSION["loggedin"])) {
+                $uname = htmlspecialchars($_SESSION["username"]);
+                echo "<li class=\"nav-item row align-items-center\"><p id=\"welcome-message\">Welcome, <b>" . $uname ."</b>!</p></li>";
+              }
+              ?>
             </ul>
           </div>
         </div>
@@ -87,7 +102,7 @@
             <div class="col-lg-12">
               <div class="text-content">
                 <h4>Products</h4>
-                <h2>Choose the best product for you!</h2>
+                <h2>Välj din framtida tron</h2>
               </div>
             </div>
           </div>
@@ -108,119 +123,9 @@
                   <img src="assets/images/product-1-720x480.jpg" alt="">
                 </div>
                 <div class="down-content">
-                  <span> <del>$500.00</del>  $700.00 </span>
-                  <a href="product-details.php"><h4>Lets try this</h4></a>
-                  <p> We did it!</p>
-                  <div class="post-options">
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <ul class="post-tags">
-                          <li><i class="fa fa-bullseye"></i></li>
-                          <li><a href="product-details.php">View Product</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="blog-post">
-                <div class="blog-thumb">
-                  <img src="assets/images/product-2-720x480.jpg" alt="">
-                </div>
-                <div class="down-content">
-                  <span> <del>$500.00</del>  $700.00 </span>
-                  <a href="product-details.php"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
-                  <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero in, asperiores iste.</p>
-                  <div class="post-options">
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <ul class="post-tags">
-                          <li><i class="fa fa-bullseye"></i></li>
-                          <li><a href="product-details.php">View Product</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="blog-post">
-                <div class="blog-thumb">
-                  <img src="assets/images/product-3-720x480.jpg" alt="">
-                </div>
-                <div class="down-content">
-                  <span> <del>$500.00</del>  $700.00 </span>
-                  <a href="product-details.php"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
-                  <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum vero qui, reprehenderit.</p>
-                  <div class="post-options">
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <ul class="post-tags">
-                          <li><i class="fa fa-bullseye"></i></li>
-                          <li><a href="product-details.php">View Product</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="blog-post">
-                <div class="blog-thumb">
-                  <img src="assets/images/product-4-720x480.jpg" alt="">
-                </div>
-                <div class="down-content">
-                  <span> <del>$500.00</del>  $700.00 </span>
-                  <a href="product-details.php"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
-                  <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi totam magni facilis.</p>
-                  <div class="post-options">
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <ul class="post-tags">
-                          <li><i class="fa fa-bullseye"></i></li>
-                          <li><a href="product-details.php">View Product</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="blog-post">
-                <div class="blog-thumb">
-                  <img src="assets/images/product-5-720x480.jpg" alt="">
-                </div>
-                <div class="down-content">
-                  <span> <del>$500.00</del>  $700.00 </span>
-                  <a href="product-details.php"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
-                  <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut neque blanditiis, doloremque.</p>
-                  <div class="post-options">
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <ul class="post-tags">
-                          <li><i class="fa fa-bullseye"></i></li>
-                          <li><a href="product-details.php">View Product</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <div class="blog-post">
-                <div class="blog-thumb">
-                  <img src="assets/images/product-6-720x480.jpg" alt="">
-                </div>
-                <div class="down-content">
-                  <span> <del>$500.00</del>  $700.00 </span>
-                  <a href="product-details.php"><h4>Lorem ipsum dolor sit amet, consectetur</h4></a>
-                  <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat sint harum suscipit?</p>
+                  <span> $150.00 - $300.00 </span>
+                  <a href="product-details.php"><h4>Prima fåtölj</h4></a>
+                  <p> Lyxig fåtölj som kan göra den mest kräsna sittaren nöjd.</p>
                   <div class="post-options">
                     <div class="row">
                       <div class="col-lg-12">
@@ -253,8 +158,7 @@
           <div class="col-lg-12">
             <div class="copyright-text">
               <p>
-                Copyright © 2020 Company Name
-                | Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+                Copyright © 2020 Fåtöljbutiken.se
               </p>
             </div>
           </div>
