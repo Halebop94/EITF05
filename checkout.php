@@ -196,6 +196,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="contact-us">
             <div class="contact-form">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                  <input type='hidden' name='csrfToken' value='<?php echo($_SESSION['csrfToken']) ?>'>
 
                 <!-- Detta syns bara om man inte är inloggad -->
                   <?php

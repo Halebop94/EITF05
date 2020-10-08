@@ -109,6 +109,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <h2>Change password</h2>
         <p>Please fill this form to change password.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+          <input type='hidden' name='csrfToken' value='<?php echo($_SESSION['csrfToken']) ?>'>
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">

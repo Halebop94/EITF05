@@ -14,6 +14,16 @@ require_once "config.php";
 // Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = "";
+$randomtoken = isset($_SESSION['csrfToken']) ? $_SESSION['csrfToken'] : "";
+if (!$randomtoken) {
+  $randomtoken = base64_encode( openssl_random_pseudo_bytes(32));
+  $_SESSION['csrfToken'] = $randomtoken;
+}
+
+
+
+
+$_SESSION["csrfToken"] = $randomtoken;
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -103,6 +113,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+          <input type='hidden' name='csrfToken' value='<?php echo($_SESSION['csrfToken']) ?>'>
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <label>Username</label>
                 <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
