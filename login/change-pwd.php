@@ -12,6 +12,7 @@ $password_err = $confirm_password_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+  if(hash_equals($_SESSION['csrfToken'], $_POST['csrfToken'])){
     // Validate password
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter a password.";
@@ -87,7 +88,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
     }
-
+  }
     // Close connection
     mysqli_close($link);
 }
@@ -109,7 +110,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <h2>Change password</h2>
         <p>Please fill this form to change password.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-          <input type='hidden' name='csrfToken' value='<?php echo($_SESSION['csrfToken']) ?>'>
+          <input type='hidden' name='csrfToken' value='<?php echo($_SESSION['csrfToken']); ?>'>
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">

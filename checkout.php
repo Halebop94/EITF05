@@ -46,7 +46,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       $_SESSION["username"] = trim($_POST["name"]);
       $_SESSION["address"] = trim($_POST["address"]);
       $_SESSION["email"] = trim($_POST["email"]);
-
   }
   header("Location: orderconfirm.php");
   exit();
@@ -196,7 +195,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="contact-us">
             <div class="contact-form">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                  <input type='hidden' name='csrfToken' value='<?php echo($_SESSION['csrfToken']) ?>'>
 
                 <!-- Detta syns bara om man inte är inloggad -->
                   <?php
