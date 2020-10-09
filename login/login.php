@@ -128,6 +128,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         body{ font: 14px sans-serif; }
         .wrapper{ width: 350px; padding: 20px; }
     </style>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
 </head>
 <body>
     <div class="wrapper">
@@ -145,7 +149,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="password" name="password" class="form-control">
                 <span class="help-block"><?php echo $password_err; ?></span>
             </div>
-            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+            <div class="form-group <?php echo (!empty($captcha_err)) ? 'has-error' : ''; ?>">
               <div class="g-recaptcha" data-sitekey="6Ld7bdUZAAAAALHlDTZkrzu5exABoaDhzTZHkIGf"></div>
               <span class="help-block"><?php echo $captcha_err; ?></span>
             </div>
