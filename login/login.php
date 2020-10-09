@@ -2,6 +2,27 @@
 // Initialize the session
 session_start();
 
+function verifyUser($user_response_token) {
+    //Verify captcha
+    $post_data = http_build_query(
+      array(
+          'secret' => "6Ld7bdUZAAAAAB-9gl8L7Cm-G9RHR12KTAWmQBRo",
+          'response' => $user_response_token,
+      )
+    );
+    $opts = array('http' =>
+      array(
+          'method'  => 'POST',
+          'header'  => 'Content-type: application/x-www-form-urlencoded',
+          'content' => $post_data
+      )
+    );
+    $context  = stream_context_create($opts);
+    $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
+    $result = json_decode($response);
+    return $result->success;
+}
+
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
   header("location: welcome.php");
@@ -13,7 +34,7 @@ require_once "config.php";
 
 // Define variables and initialize with empty values
 $username = $password = "";
-$username_err = $password_err = "";
+$username_err = $password_err = $captcha_err = "";
 
 $randomtoken = base64_encode( openssl_random_pseudo_bytes(32));
 
@@ -34,8 +55,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password = trim($_POST["password"]);
     }
 
+
+    if(isset($_POST["g-recaptcha-response"])){
+      if (!verifyUser($_POST["g-recaptcha-response"])) {
+        $captcha_err = "Please click the box";
+      }
+    }
+
     // Validate credentials
-    if(empty($username_err) && empty($password_err)){
+    if(empty($username_err) && empty($password_err) && empty($captcha_err)){
         // Prepare a select statement
         $sql = "SELECT username, password FROM users WHERE username = ?";
 
@@ -116,6 +144,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <label>Password</label>
                 <input type="password" name="password" class="form-control">
                 <span class="help-block"><?php echo $password_err; ?></span>
+            </div>
+            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+              <div class="g-recaptcha" data-sitekey="6Ld7bdUZAAAAALHlDTZkrzu5exABoaDhzTZHkIGf"></div>
+              <span class="help-block"><?php echo $captcha_err; ?></span>
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
