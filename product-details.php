@@ -88,7 +88,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
         }
       }elseif($_POST["submit"] == "comment"){
-        $commenter = "anonymous";
+        $commenter = "Anonymous";
         if(isset($_POST["commentcontent"])){
         $commentcontent = $_POST["commentcontent"];
         }
